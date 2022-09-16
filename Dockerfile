@@ -20,7 +20,7 @@ RUN cargo test
 RUN cargo build --release
 RUN toml get ./Cargo.toml package.name | \
     sed 's/-/_/g' | \
-    cp "./target/release/{}" "/app/app-release"
+    xargs -I{} cp "./target/release/{}" "/app/app-release"
 
 FROM ghcr.io/linuxcontainers/debian-slim:11 as prod
 ARG APP=/usr/src/app
